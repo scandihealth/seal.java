@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ The MIT License
+  ~
+  ~ Original work sponsored and donated by National Board of e-Health (NSI), Denmark (http://www.nsi.dk)
+  ~
+  ~ Copyright (C) 2011 National Board of e-Health (NSI), Denmark (http://www.nsi.dk)
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy of
+  ~ this software and associated documentation files (the "Software"), to deal in
+  ~ the Software without restriction, including without limitation the rights to
+  ~ use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+  ~ of the Software, and to permit persons to whom the Software is furnished to do
+  ~ so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all
+  ~ copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  ~
+  ~ $HeadURL$
+  ~ $Id$
+  -->
+
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+               xmlns:wsa="http://www.w3.org/2005/08/addressing"
+               xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
+               xmlns:wst="http://docs.oasis-open.org/ws-sx/ws-trust/200512"
+               xmlns:wst14="http://docs.oasis-open.org/ws-sx/ws-trust/200802"
+               xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
+               xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
+  <soap:Header>
+    <wsa:Action>http://docs.oasis-open.org/ws-sx/ws-trust/200512/RST/Issue</wsa:Action>
+    <wsa:MessageID>urn:uuid:99999999-0000-0000….</wsa:MessageID>
+    <wsa:To>http://pan.certifikat.dk/sts/services/SecurityTokenService</wsa:To>
+    <wsse:Security>
+      <!-- STS-signeret idkort for brugeren -->
+      <saml:Assertion IssueInstant="2011-07-23T11:42:52Z" Version="2.0" id="IDCard">
+        ....
+      </saml:Assertion>
+    </wsse:Security>
+  </soap:Header>
+  <soap:Body>
+    <wst:RequestSecurityToken Context="urn:uuid:00000…">
+      <wst:TokenType>http://docs.oasis-open.org/wss/oasis-wss-saml-token-profile- 1.1#SAMLV2.0</wst:TokenType>
+      <wst:RequestType>http://docs.oasis-open.org/ws-sx/ws-trust/200512/Issue</wst:RequestType>
+      <wst14:ActAs>
+        <!-- Reference til idkortet i headeren -->
+        <wsse:SecurityTokenReference>
+            <wsse:Reference URI="#IDCard"/>
+        </wsse:SecurityTokenReference>
+      </wst14:ActAs>
+      <wsp:AppliesTo>
+        <wsa:EndpointReference>
+          <wsa:Address>http://fmk-online.dk</wsa:Address>
+        </wsa:EndpointReference>
+      </wsp:AppliesTo>
+    </wst:RequestSecurityToken>
+  </soap:Body>
+</soap:Envelope>

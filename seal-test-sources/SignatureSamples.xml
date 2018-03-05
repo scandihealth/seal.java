@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ The MIT License
+  ~
+  ~ Original work sponsored and donated by National Board of e-Health (NSI), Denmark (http://www.nsi.dk)
+  ~
+  ~ Copyright (C) 2011 National Board of e-Health (NSI), Denmark (http://www.nsi.dk)
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy of
+  ~ this software and associated documentation files (the "Software"), to deal in
+  ~ the Software without restriction, including without limitation the rights to
+  ~ use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+  ~ of the Software, and to permit persons to whom the Software is furnished to do
+  ~ so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all
+  ~ copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  ~
+  ~ $HeadURL$
+  ~ $Id$
+  -->
+
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" 
+    xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+    <soap:Header>
+        <wsse:Security>
+            <!-- Assertion with a valid signature and a serial number reference for key identification.
+                 Element signed with ??? example key.
+            -->
+            <saml:Assertion Version="2.0" IssueInstant="2006-01-05T07:53:00Z" Issuer="www.sundhed.dk" ID="assertion-1">
+                <saml:AttributeStatement>
+                    <saml:Attribute AttributeName="testcaseid">
+                        <saml:AttributeValue>assertion-2</saml:AttributeValue>
+                    </saml:Attribute>
+                    </saml:AttributeStatement>
+                <ds:Signature>
+                    <ds:SignedInfo>
+                        <ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                        <ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+                        <ds:Reference URI="#sosi:IDCard">
+                            <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                            <ds:DigestValue>vUp8WhN8DeXtbEffhQRnIuZYtcQ=</ds:DigestValue>
+                        </ds:Reference>
+                    </ds:SignedInfo>
+                    <ds:SignatureValue>
+                        pphucDnaUJ5ZOPZusgqdLH+pvD+Im2wsqxOLoGVpZailOhB1xYUw3ukFcf7qq0WEs8uU2lA41X34
+                        zCyrVqTPFCx4k08UZ00qqNmZvdNjyaqZS++BGm2ha/yhECcCBwmhwa3LrHduf7C9u0zqaQl2gLgp
+                        uiLk/61eZ3lweai8hN0=
+                    </ds:SignatureValue>
+                    <!-- Obligatorisk: Reference til IdP'ens certifikat vha. serial number feltet. Certifikatet antages at være kendt af alle i føderationen -->
+                    <ds:KeyInfo>
+                        <ds:KeyName>2F9B7C21</ds:KeyName>
+                    </ds:KeyInfo>
+                </ds:Signature>
+            </saml:Assertion>
+            <!-- Assertion with a valid signature and a certificate -->
+            <saml:Assertion Version="2.0" IssueInstant="2006-01-05T07:53:00Z" Issuer="www.sundhed.dk" ID="assertion-2">
+                <saml:AttributeStatement>
+                    <saml:Attribute AttributeName="testcaseid">
+                        <saml:AttributeValue>assertion-2</saml:AttributeValue>
+                    </saml:Attribute>
+                    <ds:Signature>
+                        <ds:SignedInfo>
+                            <ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                            <ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+                            <ds:Reference URI="#assertion2">
+                                <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                                <ds:DigestValue>vUp8WhN8DeXtbEffhQRnIuZYtcQ=</ds:DigestValue>
+                            </ds:Reference>
+                        </ds:SignedInfo>
+                        <ds:SignatureValue>
+                            pphucDnaUJ5ZOPZusgqdLH+pvD+Im2wsqxOLoGVpZailOhB1xYUw3ukFcf7qq0WEs8uU2lA41X34
+                            zCyrVqTPFCx4k08UZ00qqNmZvdNjyaqZS++BGm2ha/yhECcCBwmhwa3LrHduf7C9u0zqaQl2gLgp
+                            uiLk/61eZ3lweai8hN0=
+                        </ds:SignatureValue>
+                        <ds:KeyInfo>
+                            <ds:X509Data >
+                                <ds:X509Certificate>
+                                    MIICPDCCAaUCBEDP/wMwDQYJKoZIhvcNAQEFBQAwZTELMAkGA1UEBhMCVVMxGzAZ
+                                    BgNVBAoTEk9yYWNsZSBDb3Jwb3JhdGlvbjEnMCUGA1UECxMeRk9SIERFTU8vVEVT
+                                    VElORyBQVVJQT1NFUyBPTkxZMRAwDgYDVQQDEwdvcmFzaWduMB4XDTA0MDYxNjA4
+                                    MDQxOVoXDTA5MDYxNTA4MDQxOVowZTELMAkGA1UEBhMCVVMxGzAZBgNVBAoTEk9y
+                                    YWNsZSBDb3Jwb3JhdGlvbjEnMCUGA1UECxMeRk9SIERFTU8vVEVTVElORyBQVVJQ
+                                    T1NFUyBPTkxZMRAwDgYDVQQDEwdvcmFzaWduMIGfMA0GCSqGSIb3DQEBAQUAA4GN
+                                    ADCBiQKBgQCmiF9F708UHqLue1kVlwx22JVY/CB8fv0WnmMa/T0xwI/LMBDNvxAN
+                                    pXnszXj5wpiVyHyQgyvZTFGh1mGSxIrWGolVnl7MZDxAJ7Kq0PyQZkq6RonvFryv
+                                    uGPWxhaLdpx+QSQ/tMp2CV7qROwOjxv0LseoqpnIL8FHPP5tFeeRrwIDAQABMA0G
+                                    CSqGSIb3DQEBBQUAA4GBAHSxoaWx3spGSMvLzr4NKr4g3gAZaTWJpeOMvybuC0r7
+                                    UDf1FBGSyK5jnDoLzhobVgxlbB9x+Voikp2bKGfxrcd9GBxlIjpfXfs9qUrJphH/
+                                    m+gwGyBFCv7ThSyiFxP1d2QPeOK76KsUl72MBerrTc0zmbR0l/2PuV4P9Yp8ZbCO
+                                </ds:X509Certificate>
+                            </ds:X509Data>
+                        </ds:KeyInfo>
+                    </ds:Signature>
+                </saml:AttributeStatement>
+            </saml:Assertion>
+            <!-- Assertion with an invalid signature and a certificate -->
+            <saml:Assertion Version="2.0" IssueInstant="2006-01-05T07:53:00Z" Issuer="www.sundhed.dk" ID="assertion-3">
+                <saml:AttributeStatement>
+                    <saml:Attribute AttributeName="testcaseid">
+                        <saml:AttributeValue>assertion-3</saml:AttributeValue>
+                    </saml:Attribute>
+                    <ds:Signature>
+                        <ds:SignedInfo>
+                            <ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                            <ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+                            <ds:Reference URI="#assertion2">
+                                <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                                <ds:DigestValue>vUp8WhN8DeXtbEffhQRnIuZYtcQ=</ds:DigestValue>
+                            </ds:Reference>
+                        </ds:SignedInfo>
+                        <ds:SignatureValue>
+                            pphucDnaUJ5ZOPZusgqdLH+pvD+Im2wsqxOLoGVpZailOhB1xYUw3ukFcf7qq0WEs8uU2lA41X34
+                            zCyrVqTPFCx4k08UZ00qqNmZvdNjyaqZS++BGm2ha/yhECcCBwmhwa3LrHduf7C9u0zqaQl2gLgp
+                            uiLk/61eZ3lweai8hN0=
+                        </ds:SignatureValue>
+                        <ds:KeyInfo>
+                            <ds:X509Data >
+                                <ds:X509Certificate>
+                                    MIICPDCCAaUCBEDP/wMwDQYJKoZIhvcNAQEFBQAwZTELMAkGA1UEBhMCVVMxGzAZ
+                                    BgNVBAoTEk9yYWNsZSBDb3Jwb3JhdGlvbjEnMCUGA1UECxMeRk9SIERFTU8vVEVT
+                                    VElORyBQVVJQT1NFUyBPTkxZMRAwDgYDVQQDEwdvcmFzaWduMB4XDTA0MDYxNjA4
+                                    MDQxOVoXDTA5MDYxNTA4MDQxOVowZTELMAkGA1UEBhMCVVMxGzAZBgNVBAoTEk9y
+                                    YWNsZSBDb3Jwb3JhdGlvbjEnMCUGA1UECxMeRk9SIERFTU8vVEVTVElORyBQVVJQ
+                                    T1NFUyBPTkxZMRAwDgYDVQQDEwdvcmFzaWduMIGfMA0GCSqGSIb3DQEBAQUAA4GN
+                                    ADCBiQKBgQCmiF9F708UHqLue1kVlwx22JVY/CB8fv0WnmMa/T0xwI/LMBDNvxAN
+                                    pXnszXj5wpiVyHyQgyvZTFGh1mGSxIrWGolVnl7MZDxAJ7Kq0PyQZkq6RonvFryv
+                                    uGPWxhaLdpx+QSQ/tMp2CV7qROwOjxv0LseoqpnIL8FHPP5tFeeRrwIDAQABMA0G
+                                    CSqGSIb3DQEBBQUAA4GBAHSxoaWx3spGSMvLzr4NKr4g3gAZaTWJpeOMvybuC0r7
+                                    UDf1FBGSyK5jnDoLzhobVgxlbB9x+Voikp2bKGfxrcd9GBxlIjpfXfs9qUrJphH/
+                                    m+gwGyBFCv7ThSyiFxP1d2QPeOK76KsUl72MBerrTc0zmbR0l/2PuV4P9Yp8ZbCO
+                                </ds:X509Certificate>
+                            </ds:X509Data>
+                        </ds:KeyInfo>
+                    </ds:Signature>
+                    </saml:AttributeStatement>
+            </saml:Assertion>
+            <!-- Assertion with a no signature -->
+            <saml:Assertion Version="2.0" IssueInstant="2006-01-05T07:53:00Z" Issuer="www.sundhed.dk" ID="assertion-4">
+                <saml:AttributeStatement>
+                    <saml:Attribute AttributeName="testcaseid">
+                        <saml:AttributeValue>assertion-4</saml:AttributeValue>
+                    </saml:Attribute>
+                </saml:AttributeStatement>
+            </saml:Assertion>
+        </wsse:Security>
+    </soap:Header>
+    <soap:Body/>    
+</soap:Envelope>

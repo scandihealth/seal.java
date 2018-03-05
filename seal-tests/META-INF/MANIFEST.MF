@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Implementation-Version: 2.3.2
+Archiver-Version: Plexus Archiver
+Built-By: chg
+Created-By: Apache Maven 3.5.2
+Build-Jdk: 1.8.0_111
+

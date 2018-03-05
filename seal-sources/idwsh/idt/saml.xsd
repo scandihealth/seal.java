@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ The MIT License
+  ~
+  ~ Original work sponsored and donated by National Board of e-Health (NSI), Denmark (http://www.nsi.dk)
+  ~
+  ~ Copyright (C) 2011 National Board of e-Health (NSI), Denmark (http://www.nsi.dk)
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy of
+  ~ this software and associated documentation files (the "Software"), to deal in
+  ~ the Software without restriction, including without limitation the rights to
+  ~ use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+  ~ of the Software, and to permit persons to whom the Software is furnished to do
+  ~ so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all
+  ~ copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  ~
+  ~ $HeadURL$
+  ~ $Id$
+  -->
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="urn:oasis:names:tc:SAML:2.0:assertion" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+    <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="dsig.xsd"/>
+    <xs:element name="Assertion">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="saml:Issuer"/>
+                <xs:element ref="ds:Signature"/>
+                <xs:element ref="saml:Subject"/>
+                <xs:element ref="saml:Conditions"/>
+                <xs:element ref="saml:AuthnStatement" minOccurs="0"/>
+                <xs:element ref="saml:AttributeStatement"/>
+            </xs:sequence>
+            <xs:attribute name="ID" use="required" type="xs:NCName"/>
+            <xs:attribute name="IssueInstant" use="required" type="xs:NMTOKEN"/>
+            <xs:attribute name="Version" use="required" type="xs:decimal"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Issuer" type="xs:anyURI"/>
+    <xs:element name="Subject">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="saml:NameID"/>
+                <xs:element ref="saml:SubjectConfirmation"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="NameID">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="Format" use="required" type="xs:anyURI"/>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="SubjectConfirmation">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="saml:SubjectConfirmationData"/>
+            </xs:sequence>
+            <xs:attribute name="Method" use="required" type="xs:anyURI"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="SubjectConfirmationData">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="ds:KeyInfo"/>
+            </xs:sequence>
+            <xs:attribute name="Recipient" use="optional" type="xs:string"/>
+            <xs:attribute name="NotOnOrAfter" use="optional" type="xs:NMTOKEN"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Conditions">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="saml:AudienceRestriction"/>
+            </xs:sequence>
+            <xs:attribute name="NotBefore" use="required" type="xs:NMTOKEN"/>
+            <xs:attribute name="NotOnOrAfter" use="required" type="xs:NMTOKEN"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="AudienceRestriction">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="saml:Audience"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Audience" type="xs:anyURI"/>
+    <xs:element name="AuthnStatement">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="saml:AuthnContext"/>
+            </xs:sequence>
+            <xs:attribute name="AuthnInstant" use="required" type="xs:NMTOKEN"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="AuthnContext">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="saml:AuthnContextClassRef"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="AuthnContextClassRef" type="xs:anyURI"/>
+    <xs:element name="AttributeStatement">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="saml:Attribute"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Attribute">
+        <xs:complexType>
+            <xs:sequence>
+                <!-- Cannnot get schema validation to work due to 'xs:string' value in attribute : (-->
+                <xs:any processContents="skip"/>
+                <!--
+                <xs:element ref="saml:AttributeValue"/>
+                -->
+            </xs:sequence>
+            <xs:attribute name="FriendlyName" type="xs:NCName"/>
+            <xs:attribute name="Name" use="required" type="xs:NMTOKEN"/>
+            <xs:attribute name="NameFormat" use="required" type="xs:anyURI"/>
+        </xs:complexType>
+    </xs:element>
+    <!--
+    <xs:element name="AttributeValue">
+        <xs:complexType>
+            <xs:anyAttribute namespace="##other" processContents="skip" />
+        </xs:complexType>
+    </xs:element>
+    -->
+</xs:schema>

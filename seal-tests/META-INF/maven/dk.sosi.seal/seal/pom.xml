@@ -1,0 +1,451 @@
+<!-- 
+ * The MIT License
+ *
+ * Original work sponsored and donated by National Board of e-Health (NSI), Denmark (http://www.nsi.dk)
+ *
+ * Copyright (C) 2011 National Board of e-Health (NSI), Denmark (http://www.nsi.dk)
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of
+ * this software and associated documentation files (the "Software"), to deal in
+ * the Software without restriction, including without limitation the rights to
+ * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+ * of the Software, and to permit persons to whom the Software is furnished to do
+ * so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ *
+ * $HeadURL$
+ * $Id$
+  -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <parent>
+    <groupId>dk.sosi.seal</groupId>
+    <artifactId>modules</artifactId>
+    <version>2.3.2</version>
+  </parent>
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>dk.sosi.seal</groupId>
+  <artifactId>seal</artifactId>
+  <packaging>jar</packaging>
+  <name>SOSI Seal Component</name>
+  <description>Common functionality for SOSI participants</description>
+
+  <properties>
+    <clover.history.dir>${basedir}/../../../../../clover_history/sosi/</clover.history.dir>
+    <chronos.history.dir>${basedir}/chronos/historyfiles</chronos.history.dir>
+  </properties>
+
+  <dependencies>
+    <!-- uncomment this to test the real Luna API -->
+    <dependency>
+      <groupId>dk.sosi.seal</groupId>
+      <artifactId>luna-dummy</artifactId>
+      <version>${project.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <!-- END uncomment -->
+    <dependency>
+      <groupId>com.unboundid</groupId>
+      <artifactId>unboundid-ldapsdk</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-all</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.santuario</groupId>
+      <artifactId>xmlsec</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>xalan</groupId>
+      <artifactId>xalan</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>xml-apis</groupId>
+      <artifactId>xml-apis</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>axis</groupId>
+      <artifactId>axis</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.axis</groupId>
+      <artifactId>axis-saaj</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.bouncycastle</groupId>
+      <artifactId>bcprov-jdk15on</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>commons-httpclient</groupId>
+      <artifactId>commons-httpclient</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>commons-codec</groupId>
+      <artifactId>commons-codec</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.jdom</groupId>
+      <artifactId>jdom</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.ws.security</groupId>
+      <artifactId>wss4j</artifactId>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.6</version>
+        <executions>
+          <execution>
+            <phase>process-resources</phase>
+            <configuration>
+              <target>
+                <copy todir="${basedir}/target/classes/META-INF">
+                  <fileset dir="${basedir}/../../license"/>
+                </copy>
+                <copy todir="${basedir}/target/classes">
+                  <fileset dir="${basedir}/../demo/config/certs"/>
+                </copy>
+              </target>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <inherited>true</inherited>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>2.4</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar</goal>
+              <goal>test-jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>2.5</version>
+        <configuration>
+          <archive>
+            <manifestEntries>
+              <Implementation-Version>${project.version}</Implementation-Version>
+            </manifestEntries>
+          </archive>
+        </configuration>
+        <executions>
+          <execution>
+            <id>bundle-test-jar</id>
+            <phase>package</phase>
+            <goals>
+              <goal>test-jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <!-- ================================= -->
+      <!-- Maven site & pre-site goals -->
+      <!-- ================================= -->
+      <plugin>
+        <groupId>com.atlassian.maven.plugins</groupId>
+        <artifactId>maven-clover2-plugin</artifactId>
+        <version>3.0.2</version>
+        <configuration>
+          <licenseLocation>${basedir}/lib/clover.license</licenseLocation>
+          <jdk>1.6</jdk>
+          <historyDir>${clover.history.dir}</historyDir>
+          <targetPercentage>85%</targetPercentage>
+          <failOnViolation>false</failOnViolation>
+
+          <excludes>
+            <exclude>**/testobjects/*.*</exclude>
+            <exclude>**/*Exception.java</exclude>
+            <exclude>**/MainTester.java</exclude>
+            <exclude>dk/sosi/seal/transform/internal/*.*</exclude>
+          </excludes>
+
+          <statementContexts>
+            <fail>fail\(.*\);</fail>
+            <throws>throw new.*</throws>
+          </statementContexts>
+
+          <contextFilters>catch, throws, fail</contextFilters>
+        </configuration>
+        <executions>
+          <execution>
+            <id>build</id>
+            <phase>pre-site</phase>
+            <goals>
+              <goal>instrument</goal>
+              <goal>save-history</goal>
+              <goal>aggregate</goal>
+              <goal>check</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>reporting</id>
+            <phase>site</phase>
+            <goals>
+              <goal>clover</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <!-- jar signing disabled due to a bug in keytool plugin, that causes builds to fail if 'clean' isn't called in between builds (http://jira.codehaus.org/browse/MKEYTOOL-6) <plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>keytool-maven-plugin</artifactId> <version>1.0</version> <executions>
+        <execution> <id>genkey</id> <phase>site</phase> <goals> <goal>genkey</goal> </goals> </execution> </executions> <configuration> <keystore>${basedir}/target/sosi.keystore</keystore> <dname>cn=www.sosi.dk, ou=None, L=Copenhagen, ST=None, o=SDSD, c=DK</dname> <alias>seal</alias> <keypass>Lakeside</keypass>
+        <storepass>Lakeside</storepass> </configuration> </plugin> <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-jarsigner-plugin</artifactId> <version>1.2</version> <executions> <execution> <id>sign</id> <phase>site</phase> <goals> <goal>sign</goal> </goals> </execution> </executions>
+        <configuration> <keystore>${basedir}/target/sosi.keystore</keystore> <alias>seal</alias> <storepass>Lakeside</storepass> <keypass>Lakeside</keypass> </configuration> </plugin> -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jxr-plugin</artifactId>
+        <version>2.2</version>
+        <executions>
+          <execution>
+            <id>jxr-pre-site</id>
+            <phase>pre-site</phase>
+            <goals>
+              <goal>jxr</goal>
+              <goal>test-jxr</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+    <finalName>seal</finalName>
+  </build>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>com.atlassian.maven.plugins</groupId>
+        <artifactId>maven-clover2-plugin</artifactId>
+        <version>3.0.2</version>
+        <configuration>
+          <licenseLocation>${basedir}/lib/clover.license</licenseLocation>
+          <historyDir>${clover.history.dir}</historyDir>
+          <generateHistorical>true</generateHistorical>
+          <jdk>1.6</jdk>
+        </configuration>
+      </plugin>
+    </plugins>
+  </reporting>
+
+  <profiles>
+    <profile>
+      <id>PP</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <configuration>
+              <includes>
+                <include>**/Test*.java</include>
+                <include>**/*Test.java</include>
+                <include>**/*TestCase.java</include>
+                <include>**/*IT.java</include>
+              </includes>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <!-- Use this profile to check whether seal also works with xerces on classpath -->
+      <id>xerces</id>
+      <dependencies>
+        <dependency>
+          <groupId>xerces</groupId>
+          <artifactId>xercesImpl</artifactId>
+        </dependency>
+        <!-- xml-apis is needed by xerces, see https://issues.apache.org/jira/browse/XERCESJ-1466 -->
+        <dependency>
+          <groupId>xml-apis</groupId>
+          <artifactId>xml-apis</artifactId>
+        </dependency>
+      </dependencies>
+    </profile>
+    <profile>
+      <id>nightly</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>chronos-jmeter-maven-plugin</artifactId>
+            <version>1.1.1-SNAPSHOT</version>
+            <dependencies>
+              <dependency>
+                <groupId>org.jfree</groupId>
+                <artifactId>jcommon</artifactId>
+                <version>1.0.23</version>
+              </dependency>
+            </dependencies>
+            <configuration>
+              <historydir>${chronos.history.dir}</historydir>
+              <sysproperties>
+                <property>
+                  <name>log4j.configuration</name>
+                  <value>log4j.xml</value>
+                </property>
+              </sysproperties>
+            </configuration>
+            <executions>
+              <execution>
+                <id>scalabilitytest</id>
+                <configuration>
+                  <dataid>scalabilitytest</dataid>
+                  <input>${basedir}/src/test/resources/jmeter-scalability-test.jmx</input>
+                </configuration>
+                <goals>
+                  <goal>jmeter</goal>
+                  <goal>check</goal>
+                  <goal>savehistory</goal>
+                </goals>
+              </execution>
+              <execution>
+                <id>endurancetest</id>
+                <configuration>
+                  <dataid>endurancetest</dataid>
+                  <input>${basedir}/src/test/resources/jmeter-endurance-test.jmx</input>
+                  <gcargs>
+                    <gcarg>-verbose:gc</gcarg>
+                    <gcarg>-Xloggc:target/chronos/endurancetest/gclog.txt</gcarg>
+                  </gcargs>
+                </configuration>
+                <goals>
+                  <goal>jmeter</goal>
+                  <goal>check</goal>
+                  <goal>savehistory</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+      <reporting>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>chronos-report-maven-plugin</artifactId>
+            <version>1.1.1-SNAPSHOT</version>
+            <configuration>
+              <historydir>${chronos.history.dir}</historydir>
+            </configuration>
+            <reportSets>
+              <reportSet>
+                <id>scalabilityreport</id>
+                <configuration>
+                  <dataid>scalabilitytest</dataid>
+                  <reportid>jmeter-scalability-report</reportid>
+                  <title>JMeter Scalability Report</title>
+                  <description><![CDATA[
+			The SOSI Project uses Jakarta JMeter to record responsetimes of the Seal common library.
+			The scalability test suite loops over SOSIFactory methods, calling each in parallel,
+			while ramping up the concurrent number of threads from 1 through 32 over a period of 660 seconds (11 minutes).]]>
+                  </description>
+                  <averageduration>20000</averageduration>
+                  <showgc>false</showgc>
+                  <showdetails>false</showdetails>
+                  <showhistogram>false</showhistogram>
+                  <showinfotable>false</showinfotable>
+                  <showtimeinfo>false</showtimeinfo>
+                  <showpercentile95>false</showpercentile95>
+                  <showaverage>false</showaverage>
+                </configuration>
+                <reports>
+                  <report>report</report>
+                  <report>historyreport</report>
+                </reports>
+              </reportSet>
+              <reportSet>
+                <id>endurancereport</id>
+                <configuration>
+                  <dataid>endurancetest</dataid>
+                  <reportid>jmeter-endurance-report</reportid>
+                  <title>JMeter Endurance Report</title>
+                  <description><![CDATA[
+			The SOSI Project uses the -Xloggc JDK facility to record simple memory usage for the seal component, while being exercised by JMeter and
+			JUnit. The endurance test suite loops over SOSIFactory methods, calling each in parallel from 10 threads for many iterations per thread
+			(millions of method calls). In reality this corresponds to "compressing time" and observing how the library acts after weeks or months of usage.
+			The graph below contains time spent in seconds on the x-axis, and kbytes allocated on the heap on the y-axis, with the following legend:
+			* The yellow line denotes the total number of kbytes allocated for the VM.
+			* The green line is the number of bytes used before garbage collection at a given time instant
+			* The blue line is the number of bytes used after garbage collection at a given time instant]]>
+                  </description>
+                  <averageduration>60000</averageduration>
+                  <showgc>true</showgc>
+                  <showhistogram>false</showhistogram>
+                  <showdetails>false</showdetails>
+                  <showinfotable>false</showinfotable>
+                </configuration>
+                <reports>
+                  <report>report</report>
+                  <report>historyreport</report>
+                </reports>
+              </reportSet>
+              <reportSet>
+                <id>responsereport</id>
+                <configuration>
+                  <dataid>endurancetest</dataid>
+                  <reportid>jmeter-response-report</reportid>
+                  <title>JMeter Response Report</title>
+                  <description><![CDATA[This is a detailed report showing info on specific request types.<br>
+								The data is from the endurancetest.]]>
+                  </description>
+                  <averageduration>60000</averageduration>
+                  <showdetails>true</showdetails>
+                  <showsummary>true</showsummary>
+                  <showinfotable>true</showinfotable>
+                  <showsummarycharts>false</showsummarycharts>
+                  <showhistogram>true</showhistogram>
+                  <showgc>false</showgc>
+                </configuration>
+                <reports>
+                  <report>report</report>
+                </reports>
+              </reportSet>
+            </reportSets>
+          </plugin>
+        </plugins>
+      </reporting>
+    </profile>
+  </profiles>
+</project>

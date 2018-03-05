@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ The MIT License
+  ~
+  ~ Original work sponsored and donated by National Board of e-Health (NSI), Denmark (http://www.nsi.dk)
+  ~
+  ~ Copyright (C) 2011 National Board of e-Health (NSI), Denmark (http://www.nsi.dk)
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy of
+  ~ this software and associated documentation files (the "Software"), to deal in
+  ~ the Software without restriction, including without limitation the rights to
+  ~ use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+  ~ of the Software, and to permit persons to whom the Software is furnished to do
+  ~ so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all
+  ~ copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  ~
+  ~ $HeadURL$
+  ~ $Id$
+  -->
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
+	xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+	xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing"
+	xmlns:wst="http://schemas.xmlsoap.org/ws/2005/02/trust"
+	targetNamespace="http://schemas.xmlsoap.org/ws/2005/02/trust"
+	elementFormDefault="qualified">
+	<xs:import
+		namespace="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+		schemaLocation="wsu-specialized.xsd"/>
+	<xs:import
+		namespace="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
+		schemaLocation="wsse-specialized.xsd"/>
+	<xs:import
+		namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing"
+		schemaLocation="wsa-specialized.xsd" />
+	<xs:element name="RequestSecurityToken"
+		type="wst:RequestSecurityTokenType" />
+	<xs:complexType name="RequestSecurityTokenType">
+		<xs:sequence>
+			<xs:element ref="wst:TokenType" />
+			<xs:element ref="wst:RequestType" />
+			<xs:element ref="wst:Claims" />
+			<xs:element ref="wst:Issuer" />
+		</xs:sequence>
+		<xs:attribute name="Context" type="xs:anyURI" />
+	</xs:complexType>
+	<xs:element name="RequestSecurityTokenResponse"
+		type="wst:RequestSecurityTokenResponseType" />
+	<xs:complexType name="RequestSecurityTokenResponseType">
+		<xs:sequence>
+			<xs:element ref="wst:TokenType" />
+			<xs:element ref="wst:RequestedSecurityToken" />
+			<xs:element ref="wst:Status" />
+			<xs:element ref="wst:Issuer" />
+		</xs:sequence>
+		<xs:attribute name="Context" type="xs:anyURI" />
+	</xs:complexType>
+	<xs:element name="TokenType" type="xs:anyURI" />
+	<xs:element name="RequestType" type="wst:RequestTypeEnum" />
+	<xs:simpleType name="RequestTypeEnum">
+		<xs:restriction base="xs:anyURI">
+			<xs:enumeration
+				value="http://schemas.xmlsoap.org/ws/2005/02/trust/Issue" />
+			<xs:enumeration
+				value="http://schemas.xmlsoap.org/ws/2005/02/trust/Renew" />
+			<xs:enumeration
+				value="http://schemas.xmlsoap.org/ws/2005/02/trust/Cancel" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="RequestedSecurityToken"
+		type="wst:RequestedSecurityTokenType" />
+	<xs:complexType name="RequestedSecurityTokenType">
+		<xs:sequence>
+			<xs:any namespace="urn:oasis:names:tc:SAML:2.0:assertion" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Claims" type="wst:ClaimsType" />
+	<xs:complexType name="ClaimsType">
+		<xs:sequence>
+			<xs:any namespace="urn:oasis:names:tc:SAML:2.0:assertion" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Status" type="wst:StatusType" />
+	<xs:complexType name="StatusType">
+		<xs:sequence>
+			<xs:element name="Code" type="wst:StatusCodeEnum" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="StatusCodeEnum">
+		<xs:restriction base="xs:anyURI">
+			<xs:enumeration
+				value="http://schemas.xmlsoap.org/ws/2005/02/trust/status/valid" />
+			<xs:enumeration
+				value="http://schemas.xmlsoap.org/ws/2005/02/trust/status/invalid" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="Issuer" type="wsa:EndpointReferenceType" />
+</xs:schema>

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ The MIT License
+  ~
+  ~ Original work sponsored and donated by National Board of e-Health (NSI), Denmark (http://www.nsi.dk)
+  ~
+  ~ Copyright (C) 2011 National Board of e-Health (NSI), Denmark (http://www.nsi.dk)
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy of
+  ~ this software and associated documentation files (the "Software"), to deal in
+  ~ the Software without restriction, including without limitation the rights to
+  ~ use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+  ~ of the Software, and to permit persons to whom the Software is furnished to do
+  ~ so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all
+  ~ copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  ~
+  ~ $HeadURL$
+  ~ $Id$
+  -->
+
+<soap:Envelope
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
+   xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
+   xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+   xmlns:medcom="http://www.medcom.dk/dgws/2006/04/dgws-1.0.xsd"
+   xmlns:sosi="http://www.sosi.dk/sosi/2006/04/sosi-1.0.xsd"
+   xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+   xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+   id="Envelope">
+   <soap:Header>
+      <wsse:Security>
+         <wsu:Timestamp>
+            <wsu:Created>2005-08-24T10:03:46</wsu:Created>
+         </wsu:Timestamp>
+         <saml:Assertion
+            id="IDCard"
+            IssueInstant="2006-01-05T07:53:00"
+            Version="2.0">
+            <saml:Issuer>some.system.name</saml:Issuer>
+            <saml:Subject>
+               <saml:NameID Format="medcom:cprnumber">1903701234</saml:NameID>
+               <saml:SubjectConfirmation>
+                  <saml:ConfirmationMethod>urn:oasis:names:tc:SAML:2.0:cm:holder-of-key</saml:ConfirmationMethod>
+                  <saml:SubjectConfirmationData>
+                     <ds:KeyInfo>
+                        <ds:KeyName>OCESSignature</ds:KeyName>
+                     </ds:KeyInfo>
+                  </saml:SubjectConfirmationData>
+               </saml:SubjectConfirmation>
+            </saml:Subject>
+            <saml:Conditions
+               NotBefore="2006-01-05T07:53:00.00"
+               NotOnOrAfter="2006-01-06T07:53:00.000" />
+            <saml:AttributeStatement id="IDCardData">
+               <saml:Attribute Name="sosi:IDCardID">
+                  <saml:AttributeValue>1234</saml:AttributeValue>
+               </saml:Attribute>
+               <saml:Attribute Name="sosi:IDCardVersion">
+                  <saml:AttributeValue>1.0</saml:AttributeValue>
+               </saml:Attribute>
+               <saml:Attribute Name="sosi:IDCardType">
+                  <saml:AttributeValue>user</saml:AttributeValue>
+               </saml:Attribute>
+               <saml:Attribute Name="sosi:AuthenticationLevel">
+                  <saml:AttributeValue>4</saml:AttributeValue>
+               </saml:Attribute>
+               <saml:Attribute Name="sosi:OCESCertHash">
+                  <saml:AttributeValue>ALiLaerBquie1/t6ykRKqLZe13Y=</saml:AttributeValue>
+               </saml:Attribute>
+            </saml:AttributeStatement>
+            <saml:AttributeStatement id="UserLog">
+               <saml:Attribute Name="medcom:UserCivilRegistrationNumber">
+                  <saml:AttributeValue>1903991234</saml:AttributeValue>
+               </saml:Attribute>
+               <saml:Attribute Name="medcom:UserGivenName">
+                  <saml:AttributeValue>Jens</saml:AttributeValue>
+               </saml:Attribute>
+               <saml:Attribute Name="medcom:UserSurName">
+                  <saml:AttributeValue>Hansen</saml:AttributeValue>
+               </saml:Attribute>
+               <saml:Attribute Name="medcom:UserEmailAddress">
+                  <saml:AttributeValue>jh@nomail.dk</saml:AttributeValue>
+               </saml:Attribute>
+               <saml:Attribute Name="medcom:UserRole">
+                  <saml:AttributeValue>PRAKTISERENDE_LAEGE</saml:AttributeValue>
+               </saml:Attribute>
+               <saml:Attribute Name="medcom:UserOccupation">
+                  <saml:AttributeValue>Overl�ge</saml:AttributeValue>
+               </saml:Attribute>
+               <saml:Attribute Name="medcom:UserAuthorizationCode">
+                  <saml:AttributeValue>1234</saml:AttributeValue>
+               </saml:Attribute>
+            </saml:AttributeStatement>
+            <saml:AttributeStatement id="SystemLog">
+               <saml:Attribute Name="medcom:ITSystemName">
+                  <saml:AttributeValue>L�geSystemet 3.0</saml:AttributeValue>
+               </saml:Attribute>
+               <saml:Attribute
+                  Name="medcom:CareProviderID"
+                  NameFormat="medcom:ynumber">
+                  <saml:AttributeValue>123456</saml:AttributeValue>
+               </saml:Attribute>
+               <saml:Attribute Name="medcom:CareProviderName">
+                  <saml:AttributeValue>Hansens L�gepraksis</saml:AttributeValue>
+               </saml:Attribute>
+            </saml:AttributeStatement>
+            <ds:Signature id="OCESSignature">
+               <ds:SignedInfo>
+                  <ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+                  <ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+                  <ds:Reference URI="#IDCard">
+                     <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+                     <ds:DigestValue>ALiLaerBquie1/t6ykRKqLZe13Y=</ds:DigestValue>
+                  </ds:Reference>
+               </ds:SignedInfo>
+               <ds:SignatureValue>
+                  NFAnBZLz/jOaG4RVdBKBKpB5q27OqBhi9NW9n4b5mHhBpoJXKDt8sVF3nT3aRlWklYCyzNO6fiUYqWEJcNFJmFHs/9lsORK10zjnZjBi8kI1QVBG8jFkDkvPBEgJXBLaVkHf6oK5iVDUaBY+CxbXfPWoqB0JItwbcDnc8Aj6Od0=
+               </ds:SignatureValue>
+               <ds:KeyInfo>
+                  <ds:X509Data>
+                     <ds:X509Certificate>
+                        MIICPDCCAaUCBEDP/wMwDQYJKoZIhvcNAQEFBQAwZTELMAkGA1UEBhMCVVMxGzAZBgNVBAoTEk9yYWNsZSBDb3Jwb3JhdGlvbjEnMCUGA1UECxMeRk9SIERFTU8vVEVTVElORyBQVVJQT1NFUyBPTkxZMRAwDgYDVQQDEwdvcmFzaWduMB4XDTA0MDYxNjA4MDQxOVoXDTA5MDYxNTA4MDQxOVowZTELMAkGA1UEBhMCVVMxGzAZBgNVBAoTEk9yYWNsZSBDb3Jwb3JhdGlvbjEnMCUGA1UECxMeRk9SIERFTU8vVEVTVElORyBQVVJQT1NFUyBPTkxZMRAwDgYDVQQDEwdvcmFzaWduMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCmiF9F708UHqLue1kVlwx22JVY/CB8fv0WnmMa/T0xwI/LMBDNvxANpXnszXj5wpiVyHyQgyvZTFGh1mGSxIrWGolVnl7MZDxAJ7Kq0PyQZkq6RonvFryvuGPWxhaLdpx+QSQ/tMp2CV7qROwOjxv0LseoqpnIL8FHPP5tFeeRrwIDAQABMA0GCSqGSIb3DQEBBQUAA4GBAHSxoaWx3spGSMvLzr4NKr4g3gAZaTWJpeOMvybuC0r7UDf1FBGSyK5jnDoLzhobVgxlbB9x+Voikp2bKGfxrcd9GBxlIjpfXfs9qUrJphH/m+gwGyBFCv7ThSyiFxP1d2QPeOK76KsUl72MBerrTc0zmbR0l/2PuV4P9Yp8ZbCO
+                     </ds:X509Certificate>
+                  </ds:X509Data>
+               </ds:KeyInfo>
+            </ds:Signature>
+         </saml:Assertion>
+         <ds:Signature id="EnvelopeSignature">
+            <ds:SignedInfo>
+               <ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+               <ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+               <ds:Reference URI="#Envelope">
+                  <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+                  <ds:DigestValue>ALiLaerBquie1/t6ykRKqLZe13Y=</ds:DigestValue>
+               </ds:Reference>
+            </ds:SignedInfo>
+            <ds:SignatureValue>
+               NFAnBZLz/jOaG4RVdBKBKpB5q27OqBhi9NW9n4b5mHhBpoJXKDt8sVF3nT3aRlWklYCyzNO6fiUYqWEJcNFJmFHs/9lsORK10zjnZjBi8kI1QVBG8jFkDkvPBEgJXBLaVkHf6oK5iVDUaBY+CxbXfPWoqB0JItwbcDnc8Aj6Od0=
+            </ds:SignatureValue>
+            <ds:KeyInfo>
+               <ds:X509Data>
+                  <ds:X509Certificate>
+                     MIICPDCCAaUCBEDP/wMwDQYJKoZIhvcNAQEFBQAwZTELMAkGA1UEBhMCVVMxGzAZBgNVBAoTEk9yYWNsZSBDb3Jwb3JhdGlvbjEnMCUGA1UECxMeRk9SIERFTU8vVEVTVElORyBQVVJQT1NFUyBPTkxZMRAwDgYDVQQDEwdvcmFzaWduMB4XDTA0MDYxNjA4MDQxOVoXDTA5MDYxNTA4MDQxOVowZTELMAkGA1UEBhMCVVMxGzAZBgNVBAoTEk9yYWNsZSBDb3Jwb3JhdGlvbjEnMCUGA1UECxMeRk9SIERFTU8vVEVTVElORyBQVVJQT1NFUyBPTkxZMRAwDgYDVQQDEwdvcmFzaWduMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCmiF9F708UHqLue1kVlwx22JVY/CB8fv0WnmMa/T0xwI/LMBDNvxANpXnszXj5wpiVyHyQgyvZTFGh1mGSxIrWGolVnl7MZDxAJ7Kq0PyQZkq6RonvFryvuGPWxhaLdpx+QSQ/tMp2CV7qROwOjxv0LseoqpnIL8FHPP5tFeeRrwIDAQABMA0GCSqGSIb3DQEBBQUAA4GBAHSxoaWx3spGSMvLzr4NKr4g3gAZaTWJpeOMvybuC0r7UDf1FBGSyK5jnDoLzhobVgxlbB9x+Voikp2bKGfxrcd9GBxlIjpfXfs9qUrJphH/m+gwGyBFCv7ThSyiFxP1d2QPeOK76KsUl72MBerrTc0zmbR0l/2PuV4P9Yp8ZbCO
+                  </ds:X509Certificate>
+               </ds:X509Data>
+            </ds:KeyInfo>
+         </ds:Signature>
+      </wsse:Security>
+      <medcom:Header>
+         <medcom:SecurityLevel>4</medcom:SecurityLevel>
+         <medcom:Linking>
+            <medcom:FlowID>aGQ5ZWxwcTA4N2ZubWM2ZA==</medcom:FlowID>
+            <medcom:MessageID>amRrMDk3d2doYXB2amY2cg==</medcom:MessageID>
+         </medcom:Linking>
+         <medcom:Priority>RUTINE</medcom:Priority>
+         <medcom:RequireNonRepudiationReceipt>yes</medcom:RequireNonRepudiationReceipt>
+      </medcom:Header>
+   </soap:Header>
+   <soap:Body>SomeXML</soap:Body>
+</soap:Envelope>

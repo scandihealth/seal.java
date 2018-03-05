@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ The MIT License
+  ~
+  ~ Original work sponsored and donated by National Board of e-Health (NSI), Denmark (http://www.nsi.dk)
+  ~
+  ~ Copyright (C) 2011 National Board of e-Health (NSI), Denmark (http://www.nsi.dk)
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy of
+  ~ this software and associated documentation files (the "Software"), to deal in
+  ~ the Software without restriction, including without limitation the rights to
+  ~ use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+  ~ of the Software, and to permit persons to whom the Software is furnished to do
+  ~ so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all
+  ~ copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  ~
+  ~ $HeadURL$
+  ~ $Id$
+  -->
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.w3.org/2000/09/xmldsig#" xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+    <xs:element name="Signature">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="ds:SignedInfo"/>
+                <xs:element ref="ds:SignatureValue"/>
+                <xs:element ref="ds:KeyInfo"/>
+            </xs:sequence>
+            <xs:attribute name="Id" use="required" type="xs:NCName"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="SignedInfo">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="ds:CanonicalizationMethod"/>
+                <xs:element ref="ds:SignatureMethod"/>
+                <xs:element ref="ds:Reference"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CanonicalizationMethod">
+        <xs:complexType>
+            <xs:attribute name="Algorithm" use="required" type="xs:anyURI"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="SignatureMethod">
+        <xs:complexType>
+            <xs:attribute name="Algorithm" use="required" type="xs:anyURI"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Reference">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="ds:Transforms"/>
+                <xs:element ref="ds:DigestMethod"/>
+                <xs:element ref="ds:DigestValue"/>
+            </xs:sequence>
+            <xs:attribute name="URI" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Transforms">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="ds:Transform"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Transform">
+        <xs:complexType>
+            <xs:attribute name="Algorithm" use="required" type="xs:anyURI"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="DigestMethod">
+        <xs:complexType>
+            <xs:attribute name="Algorithm" use="required" type="xs:anyURI"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="DigestValue" type="xs:base64Binary"/>
+    <xs:element name="SignatureValue" type="xs:base64Binary"/>
+    <xs:element name="KeyInfo">
+        <xs:complexType>
+            <xs:choice>
+                <xs:element ref="ds:KeyName"/>
+                <xs:element ref="ds:RetrievalMethod"/>
+                <xs:element ref="ds:X509Data"/>
+            </xs:choice>
+            <xs:attribute name="Id" type="xs:NCName"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="KeyName" type="xs:string"/>
+    <xs:element name="RetrievalMethod">
+        <xs:complexType>
+            <xs:attribute name="URI" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="X509Data">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="ds:X509Certificate"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="X509Certificate" type="xs:base64Binary"/>
+</xs:schema>

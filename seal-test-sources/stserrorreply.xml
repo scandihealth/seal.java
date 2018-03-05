@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ The MIT License
+  ~
+  ~ Original work sponsored and donated by National Board of e-Health (NSI), Denmark (http://www.nsi.dk)
+  ~
+  ~ Copyright (C) 2011 National Board of e-Health (NSI), Denmark (http://www.nsi.dk)
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy of
+  ~ this software and associated documentation files (the "Software"), to deal in
+  ~ the Software without restriction, including without limitation the rights to
+  ~ use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+  ~ of the Software, and to permit persons to whom the Software is furnished to do
+  ~ so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all
+  ~ copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  ~
+  ~ $HeadURL$
+  ~ $Id$
+  -->
+
+<soap:Envelope
+   id="Envelope"
+   xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+   xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
+   xmlns:wst="http://schemas.xmlsoap.org/ws/2005/02/trust"
+   xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+   xmlns:medcom="http://www.medcom.dk/dgws/2006/04/dgws-1.0.xsd"
+   xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
+   xmlns:sosi="http://www.sosi.dk/sosi/2006/04/sosi-1.0.xsd"
+   xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <soap:Header>
+      <wsse-security>
+         <wsu-timestamp />
+      </wsse-security>
+   </soap:Header>
+   <soap:Body>
+      <soap:Fault>
+         <!-- 
+            faultcode                        faultstring
+            wst:InvalidRequest               The request was invalid or malformed 
+            wst:FailedAuthentication         Authentication failed
+            wst:RequestFailed                The specified request failed
+            wst:InvalidSecurityToken         Security token has been revoked
+            wst:AuthenticationBadElements    Insufficient Digest Elements
+            wst:BadRequest                   The specified RequestSecurityToken is not understood.
+            wst:ExpiredData                  The request data is out-of-date
+            wst:InvalidTimeRange             The requested time range is invalid or unsupported
+            wst:InvalidScope                 The request scope is invalid or unsupported
+            wst:RenewNeeded                  A renewable security token has expired
+            wst:UnableToRenew                The requested renewal failed
+         -->
+         <faultcode>wst:InvalidRequest</faultcode>
+         <faultstring>The request was invalid or malformed</faultstring>
+         <faultactor>http://www.sosists.dk/sts</faultactor>
+         <detail></detail>
+      </soap:Fault>
+   </soap:Body>
+</soap:Envelope>

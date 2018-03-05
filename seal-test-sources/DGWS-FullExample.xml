@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ The MIT License
+  ~
+  ~ Original work sponsored and donated by National Board of e-Health (NSI), Denmark (http://www.nsi.dk)
+  ~
+  ~ Copyright (C) 2011 National Board of e-Health (NSI), Denmark (http://www.nsi.dk)
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy of
+  ~ this software and associated documentation files (the "Software"), to deal in
+  ~ the Software without restriction, including without limitation the rights to
+  ~ use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+  ~ of the Software, and to permit persons to whom the Software is furnished to do
+  ~ so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all
+  ~ copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  ~
+  ~ $HeadURL$
+  ~ $Id$
+  -->
+
+<!--MedCom Den Gode Websrvice Request 1.0 -->
+<!-- 
+  Komplet eksempel, der indeholder samtlige legale tags for alle 5 niveauer. Nogle felter
+  er obligatoriske på nogle niveauer og optionelle på andre. For en komplet angivelse af om
+  et felt er obligatorisk på et givet niveau, se eksemplet for det pågældende niveau.
+-->
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:medcom="http://www.medcom.dk/dgws/2006/04/dgws-1.0.xsd" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:sosi="http://www.sosi.dk/sosi/2006/04/sosi-1.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xsi:schemaLocation="http://schemas.xmlsoap.org/soap/envelope/ 
+                                     http://schemas.xmlsoap.org/soap/envelope/
+                                     http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd
+                                     http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd
+                                     http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd
+                                     http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd
+                                     ">
+	<soap:Header>
+		<!-- Obligatorisk: Web Services Security Header -->
+		<wsse:Security>
+			<!-- Obligatorisk: Tidspunkt hvor beskeden er blevet skabt -->
+			<wsu:Timestamp>
+				<wsu:Created>2005-08-24T10:03:46</wsu:Created>
+			</wsu:Timestamp>
+			<!-- Brugernavn & Password. (Se http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0.pdf) -->
+			<!-- Obligatorisk på niveau 2+3 og ikke gyldig på niveau 1+4+5+6 -->
+			<!-- Obligatorisk: SOSI ID-kort -->
+			<saml:Assertion Version="2.0" IssueInstant="2006-01-05T07:53:00Z" Issuer="www.sundhed.dk" ID="sosi:IDCard">
+				<!-- Obligatorisk: ID-kortets gyldighedsperiode (24t) -->
+				<saml:Conditions NotBefore="2006-01-05T07:53:00.00Z" NotOnOrAfter="2006-01-06T07:53:00.000Z"/>
+				<!-- Obligatorisk niveau 1-6: ID-kortets attributter -->
+				<saml:AttributeStatement>
+					<!-- Obligatorisk niveau 1-6, ikke tilladt for AuthnRequest: Reference til IdP'ens certifikat & brugerens certifikat cvr-rid til at godtgøre brugerens identitet -->
+					<saml:Subject>
+						<!-- NameID indeholder identifikation af den bruger, som dette ID-kort repræsenterer. 
+                              For kort, der repræsenterer en person anvendes urn:sosi:names:nameid-format:UserCivilRegistrationNumber
+							  For kort, der repræsenterer et system, anvendes urn:sosi:names:nameid-format:ITSystemName  -->
+						<saml:NameID Format="urn:sosi:names:nameid-format:UserCivilRegistrationNumber">1903991234</saml:NameID>
+						<!-- Reference til IdP'ens certifikat vha. serial number feltet. Ikke gyldig på niveau 1-3. Obligatorisk på niveau 4-6 -->
+						<saml:SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:holder-of-key">
+							<saml:SubjectConfirmationData xsi:type="saml:KeyInfoConfirmationDataType">
+								<ds:KeyInfo>
+									<ds:KeyName>2F9B7C21</ds:KeyName>
+								</ds:KeyInfo>
+							</saml:SubjectConfirmationData>
+						</saml:SubjectConfirmation>
+					</saml:Subject>
+					<!-- Obligatorisk: ID-kortets unikke ID -->
+					<saml:Attribute AttributeName="sosi:IDCardID">
+						<saml:AttributeValue>1234</saml:AttributeValue>
+					</saml:Attribute>
+					<!-- Obligatorisk: ID-kortets version. Indtil videre er kun "1.0" gyldig -->
+					<saml:Attribute AttributeName="sosi:IDCardVersion">
+						<saml:AttributeValue>1.0</saml:AttributeValue>
+					</saml:Attribute>
+					<!-- Obligatorisk: ID-kortets authentication level: 1-6 -->
+					<saml:Attribute AttributeName="sosi:AuthenticationLevel">
+						<saml:AttributeValue>5</saml:AttributeValue>
+					</saml:Attribute>
+					<!-- Obligatorisk på niveau 5-6. Ikke tilladt på niveau 1-4: Serienummeret på det person certifikat, der lå til grund for udstedelse af ID-kort -->
+					<saml:Attribute AttributeName="sosi:UserCertSerialNumber">
+						<saml:AttributeValue>3d4e65d3</saml:AttributeValue>
+					</saml:Attribute>
+					<!-- Obligatorisk på niveau 4-6. Ikke tilladt på niveau 1-3: serienummeret på det systemcertifikat, der lå til grund for udstedelsen af ID-kortet -->
+					<saml:Attribute AttributeName="sosi:ITSystemCertSerialNumber">
+						<saml:AttributeValue>3fc4eb57</saml:AttributeValue>
+					</saml:Attribute>
+				</saml:AttributeStatement>
+				<!-- Obligatorisk på niveau 3,5 og 6. Tilladt på niveau 1,2 og 4: Bruger information. -->
+				<saml:AttributeStatement id="medcom:UserLog">
+					<saml:Attribute AttributeName="medcom:UserCivilRegistrationNumber">
+						<saml:AttributeValue>1903991234</saml:AttributeValue>
+					</saml:Attribute>
+					<saml:Attribute AttributeName="medcom:UserOccupation">
+						<saml:AttributeValue></saml:AttributeValue>
+					</saml:Attribute>
+					<saml:Attribute AttributeName="medcom:UserGivenName">
+						<saml:AttributeValue>Jens</saml:AttributeValue>
+					</saml:Attribute>
+					<saml:Attribute AttributeName="medcom:UserSurName">
+						<saml:AttributeValue>Hansen</saml:AttributeValue>
+					</saml:Attribute>
+					<saml:Attribute AttributeName="medcom:UserEMailAdress">
+						<saml:AttributeValue>jh@nomail.dk</saml:AttributeValue>
+					</saml:Attribute>
+					<saml:Attribute AttributeName="medcom:UserRole">
+						<saml:AttributeValue>PRAKTISERENDE_LAEGE</saml:AttributeValue>
+					</saml:Attribute>
+				</saml:AttributeStatement>
+				<!-- Obligatorisk på alle niveauer: System information -->
+				<saml:AttributeStatement id="medcom:SystemLog">
+					<saml:Attribute AttributeName="medcom:ITSystemName">
+						<saml:AttributeValue>laegesystemet.hansenspraksis.dk</saml:AttributeValue>
+					</saml:Attribute>
+					<saml:Attribute AttributeName="medcom:UserOrganisationName">
+						<saml:AttributeValue>Hansens Lægepraksis</saml:AttributeValue>
+					</saml:Attribute>
+					<saml:Attribute AttributeName="medcom:UserOrganisationCVR">
+						<saml:AttributeValue>856342</saml:AttributeValue>
+					</saml:Attribute>
+				</saml:AttributeStatement>				
+				<!-- Obligatorisk på niveau 4-6, ikke tilladt på niveau 1-3: IdP'ens signatur af ID-kortet -->
+			</saml:Assertion>
+			<!-- SLUT SOSI ID-kort -->
+			<!-- Obligatorisk: Meta data -->
+			<saml:Assertion IssueInstant="2006-01-05T08:03:00Z" Issuer="laegesystemet.hansenspraksis.dk" Version="2.0" id="MetaData">
+				<!-- Optionel: Uafviselighed på svaret. Default er "no" -->
+				<saml:AttributeStatement>
+					<saml:Attribute AttributeName="sosi:RequireNonRepudiationReceipt">
+						<saml:AttributeValue>yes</saml:AttributeValue>
+					</saml:Attribute>
+				</saml:AttributeStatement>
+				<!-- Optionel: Samtykke -->
+				<saml:AttributeStatement id="medcom:Consent">
+					<!-- Obligatorisk: Hvilken type samtykke der er givet -->
+					<saml:Attribute AttributeName="medcom:PatientConsentCode">
+						<saml:AttributeValue>SAMTYKKE_GIVET</saml:AttributeValue>
+					</saml:Attribute>
+					<!-- Optionel: Kommentar til samtykket -->
+					<saml:Attribute AttributeName="medcom:PatientConsentRemark">
+						<saml:AttributeValue>Pt. i akut behandling</saml:AttributeValue>
+					</saml:Attribute>
+					<!-- Obligatorisk: Patientens CPR nummer -->
+					<saml:Attribute AttributeName="medcom:PatientCivilRegistrationNumber">
+						<saml:AttributeValue>2112020982</saml:AttributeValue>
+					</saml:Attribute>
+				</saml:AttributeStatement>
+				<!-- Obligatorisk: Linking. Oplysninger til identifikation af besked og sammenkædning af beskeder -->
+				<saml:AttributeStatement id="medcom:Linking">
+					<!-- Optionelt: Unikt ID der sættes på både request og response til brug ved korrelering. Mindst 16 bytes, base 64 encoded -->
+					<saml:Attribute AttributeName="medcom:FlowID">
+						<saml:AttributeValue>aGQ5ZWxwcTA4N2ZubWM2ZA==</saml:AttributeValue>
+					</saml:Attribute>
+					<!-- Obligatorisk: Unikt ID for netop denne SOAP kuvert. Mindst 16 bytes, base 64 encoded -->
+					<saml:Attribute AttributeName="medcom:MessageID">
+						<saml:AttributeValue>amRrMDk3d2doYXB2amY2cg==</saml:AttributeValue>
+					</saml:Attribute>
+					<!-- Optionel: Hint til hvordan service udbyderen om muligt skal prioritere behandlingen af denne besked. Default == RUTINE -->
+					<saml:Attribute AttributeName="medcom:RequestPriority">
+						<saml:AttributeValue>RUTINE</saml:AttributeValue>
+					</saml:Attribute>
+				</saml:AttributeStatement>
+			</saml:Assertion>
+			<!-- SLUT: Meta data -->
+			<!-- Optionelt: Digital signatur af konvolut og meddelelse -->
+		</wsse:Security>
+	</soap:Header>
+	<soap:Body id="MessageBody">
+		<!-- Optionelt: Avanceret anvendelse af DGWS. Hvis medcom:Envelope ikke findes, er indholdet et vilkårligt service specifikt XML dokument -->
+		<medcom:ExtendedUse>
+			<medcom:ExtendedUseHeader>
+				<!-- Optionelt: Addresseringsoplysninger. -->
+				<medcom:Addressing>
+					<medcom:Sender>
+						<medcom:EANIdentifier>5900001234567Lagehuset</medcom:EANIdentifier>
+						<medcom:DepartmentIdentifier>sekretariat</medcom:DepartmentIdentifier>
+						<medcom:PersonIdentifier>jhansen</medcom:PersonIdentifier>
+					</medcom:Sender>
+					<medcom:Receiver>
+						<medcom:EANIdentifier>765Odense</medcom:EANIdentifier>
+						<medcom:DepartmentIdentifier>DistriktHunderup</medcom:DepartmentIdentifier>
+						<medcom:PersonIdentifier>PJensen</medcom:PersonIdentifier>
+					</medcom:Receiver>
+				</medcom:Addressing>
+				<!-- Optionelt: Betalingsoplysninger -->
+				<medcom:Payment>
+					<medcom:CardNumber>9876876543219876</medcom:CardNumber>
+					<medcom:CardValidThru>10.05.2012</medcom:CardValidThru>
+					<medcom:CardName>JENS H HANSEN</medcom:CardName>
+					<medcom:CardScurityCode>987</medcom:CardScurityCode>
+					<!-- ISO 4217 Type Currency Code List (http://www.iso.org/iso/en/prods-services/popstds/currencycodeslist.html) -->
+					<medcom:CurrencyCode>DKK</medcom:CurrencyCode>
+					<medcom:Amount>999,75</medcom:Amount>
+				</medcom:Payment>
+				<!-- Optionel niveau 5: Hvis medtaget garanteres det at slutbrugeren har set indholdet af DocumentToSign og lavet en digital signatur af MessageBody med sit MOCES -->
+				<medcom:DocumentToSign>Vil du underskrive følgende ...</medcom:DocumentToSign>
+			</medcom:ExtendedUseHeader>
+			<!-- Obligatorisk: Indeholder et vilkårlig XML dokument, der er service specifikt -->
+			<medcom:ExtendedUseBody/>
+		</medcom:ExtendedUse>
+	</soap:Body>
+</soap:Envelope>

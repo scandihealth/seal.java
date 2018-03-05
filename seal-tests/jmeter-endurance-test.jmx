@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="2.1">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <stringProp name="TestPlan.comments"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Performance Test Group" enabled="true">
+        <longProp name="ThreadGroup.start_time">1149083883000</longProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.num_threads">4</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <longProp name="ThreadGroup.end_time">1149083883000</longProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">true</boolProp>
+          <stringProp name="LoopController.loops">3200</stringProp>
+        </LoopController>
+        <hashTree>
+          <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer" enabled="true">
+            <stringProp name="ConstantTimer.delay">200</stringProp>
+          </ConstantTimer>
+          <hashTree/>
+          <JUnitSampler guiclass="JUnitTestSamplerGui" testclass="JUnitSampler" testname="testCreateSecurityTokenRequest" enabled="true">
+            <stringProp name="junitsampler.failure">Test failed</stringProp>
+            <stringProp name="junitsampler.success.code">1000</stringProp>
+            <stringProp name="junitsampler.failure.code">0001</stringProp>
+            <stringProp name="junitsampler.pkg.filter"></stringProp>
+            <stringProp name="junitsampler.exec.setup">false</stringProp>
+            <stringProp name="junitsampler.success">Test successful</stringProp>
+            <stringProp name="junitsampler.method">testCreateSecurityTokenRequest</stringProp>
+            <stringProp name="junitsampler.constructorstring"></stringProp>
+            <stringProp name="junitSampler.classname">dk.sosi.seal.TestPerformance</stringProp>
+            <stringProp name="junitsampler.append.error">false</stringProp>
+            <stringProp name="junitsampler.append.exception">false</stringProp>
+          </JUnitSampler>
+          <hashTree/>
+          <JUnitSampler guiclass="JUnitTestSamplerGui" testclass="JUnitSampler" testname="testCreateSecurityTokenResponse" enabled="true">
+            <stringProp name="junitsampler.failure">Test failed</stringProp>
+            <stringProp name="junitsampler.success.code">1000</stringProp>
+            <stringProp name="junitsampler.failure.code">0001</stringProp>
+            <stringProp name="junitsampler.pkg.filter"></stringProp>
+            <stringProp name="junitsampler.exec.setup">false</stringProp>
+            <stringProp name="junitsampler.success">Test successful</stringProp>
+            <stringProp name="junitsampler.method">testCreateSecurityTokenResponse</stringProp>
+            <stringProp name="junitsampler.constructorstring"></stringProp>
+            <stringProp name="junitSampler.classname">dk.sosi.seal.TestPerformance</stringProp>
+            <stringProp name="junitsampler.append.error">false</stringProp>
+            <stringProp name="junitsampler.append.exception">false</stringProp>
+          </JUnitSampler>
+          <hashTree/>
+          <JUnitSampler guiclass="JUnitTestSamplerGui" testclass="JUnitSampler" testname="testCreateRequest" enabled="true">
+            <stringProp name="junitsampler.failure">Test failed</stringProp>
+            <stringProp name="junitsampler.success.code">1000</stringProp>
+            <stringProp name="junitsampler.failure.code">0001</stringProp>
+            <stringProp name="junitsampler.pkg.filter"></stringProp>
+            <stringProp name="junitsampler.exec.setup">false</stringProp>
+            <stringProp name="junitsampler.success">Test successful</stringProp>
+            <stringProp name="junitsampler.method">testCreateRequest</stringProp>
+            <stringProp name="junitsampler.constructorstring"></stringProp>
+            <stringProp name="junitSampler.classname">dk.sosi.seal.TestPerformance</stringProp>
+            <stringProp name="junitsampler.append.error">false</stringProp>
+            <stringProp name="junitsampler.append.exception">false</stringProp>
+          </JUnitSampler>
+          <hashTree/>
+          <JUnitSampler guiclass="JUnitTestSamplerGui" testclass="JUnitSampler" testname="testCreateReply" enabled="true">
+            <stringProp name="junitsampler.failure">Test failed</stringProp>
+            <stringProp name="junitsampler.success.code">1000</stringProp>
+            <stringProp name="junitsampler.failure.code">0001</stringProp>
+            <stringProp name="junitsampler.pkg.filter"></stringProp>
+            <stringProp name="junitsampler.exec.setup">false</stringProp>
+            <stringProp name="junitsampler.method">testCreateReply</stringProp>
+            <stringProp name="junitsampler.success">Test successful</stringProp>
+            <stringProp name="junitsampler.constructorstring"></stringProp>
+            <stringProp name="junitSampler.classname">dk.sosi.seal.TestPerformance</stringProp>
+            <stringProp name="junitsampler.append.error">false</stringProp>
+            <stringProp name="junitsampler.append.exception">false</stringProp>
+          </JUnitSampler>
+          <hashTree/>
+          <JUnitSampler guiclass="JUnitTestSamplerGui" testclass="JUnitSampler" testname="testCreateNewSystemIDCard" enabled="true">
+            <stringProp name="junitsampler.failure">Test failed</stringProp>
+            <stringProp name="junitsampler.success.code">1000</stringProp>
+            <stringProp name="junitsampler.failure.code">0001</stringProp>
+            <stringProp name="junitsampler.pkg.filter"></stringProp>
+            <stringProp name="junitsampler.exec.setup">false</stringProp>
+            <stringProp name="junitsampler.method">testCreateNewSystemIDCard</stringProp>
+            <stringProp name="junitsampler.success">Test successful</stringProp>
+            <stringProp name="junitsampler.constructorstring"></stringProp>
+            <stringProp name="junitSampler.classname">dk.sosi.seal.TestPerformance</stringProp>
+            <stringProp name="junitsampler.append.error">false</stringProp>
+            <stringProp name="junitsampler.append.exception">false</stringProp>
+          </JUnitSampler>
+          <hashTree/>
+          <JUnitSampler guiclass="JUnitTestSamplerGui" testclass="JUnitSampler" testname="testCreateNewUserIDCard" enabled="true">
+            <stringProp name="junitsampler.failure">Test failed</stringProp>
+            <stringProp name="junitsampler.success.code">1000</stringProp>
+            <stringProp name="junitsampler.failure.code">0001</stringProp>
+            <stringProp name="junitsampler.pkg.filter"></stringProp>
+            <stringProp name="junitsampler.exec.setup">false</stringProp>
+            <stringProp name="junitsampler.method">testCreateNewUserIDCard</stringProp>
+            <stringProp name="junitsampler.success">Test successful</stringProp>
+            <stringProp name="junitsampler.constructorstring"></stringProp>
+            <stringProp name="junitSampler.classname">dk.sosi.seal.TestPerformance</stringProp>
+            <stringProp name="junitsampler.append.error">false</stringProp>
+            <stringProp name="junitsampler.append.exception">false</stringProp>
+          </JUnitSampler>
+          <hashTree/>
+          <JUnitSampler guiclass="JUnitTestSamplerGui" testclass="JUnitSampler" testname="testDeserializeReply" enabled="true">
+            <stringProp name="junitsampler.failure">Test failed</stringProp>
+            <stringProp name="junitsampler.success.code">1000</stringProp>
+            <stringProp name="junitsampler.failure.code">0001</stringProp>
+            <stringProp name="junitsampler.pkg.filter"></stringProp>
+            <stringProp name="junitsampler.exec.setup">false</stringProp>
+            <stringProp name="junitsampler.method">testDeserializeReply</stringProp>
+            <stringProp name="junitsampler.success">Test successful</stringProp>
+            <stringProp name="junitsampler.constructorstring"></stringProp>
+            <stringProp name="junitSampler.classname">dk.sosi.seal.TestPerformance</stringProp>
+            <stringProp name="junitsampler.append.error">false</stringProp>
+            <stringProp name="junitsampler.append.exception">false</stringProp>
+          </JUnitSampler>
+          <hashTree/>
+          <JUnitSampler guiclass="JUnitTestSamplerGui" testclass="JUnitSampler" testname="testDeserializeRequest" enabled="true">
+            <stringProp name="junitsampler.failure">Test failed</stringProp>
+            <stringProp name="junitsampler.success.code">1000</stringProp>
+            <stringProp name="junitsampler.failure.code">0001</stringProp>
+            <stringProp name="junitsampler.pkg.filter"></stringProp>
+            <stringProp name="junitsampler.exec.setup">false</stringProp>
+            <stringProp name="junitsampler.method">testDeserializeRequest</stringProp>
+            <stringProp name="junitsampler.success">Test successful</stringProp>
+            <stringProp name="junitsampler.constructorstring"></stringProp>
+            <stringProp name="junitSampler.classname">dk.sosi.seal.TestPerformance</stringProp>
+            <stringProp name="junitsampler.append.error">false</stringProp>
+            <stringProp name="junitsampler.append.exception">false</stringProp>
+          </JUnitSampler>
+          <hashTree/>
+          <JUnitSampler guiclass="JUnitTestSamplerGui" testclass="JUnitSampler" testname="testIDCardBinarySerialization" enabled="true">
+            <stringProp name="junitsampler.failure">Test failed</stringProp>
+            <stringProp name="junitsampler.success.code">1000</stringProp>
+            <stringProp name="junitsampler.failure.code">0001</stringProp>
+            <stringProp name="junitsampler.pkg.filter"></stringProp>
+            <stringProp name="junitsampler.exec.setup">false</stringProp>
+            <stringProp name="junitsampler.method">testIDCardBinarySerialization</stringProp>
+            <stringProp name="junitsampler.success">Test successful</stringProp>
+            <stringProp name="junitsampler.constructorstring"></stringProp>
+            <stringProp name="junitSampler.classname">dk.sosi.seal.TestPerformance</stringProp>
+            <stringProp name="junitsampler.append.error">false</stringProp>
+            <stringProp name="junitsampler.append.exception">false</stringProp>
+          </JUnitSampler>
+          <hashTree/>
+          <JUnitSampler guiclass="JUnitTestSamplerGui" testclass="JUnitSampler" testname="testIDCardXMLSerialization" enabled="true">
+            <stringProp name="junitsampler.failure">Test failed</stringProp>
+            <stringProp name="junitsampler.success.code">1000</stringProp>
+            <stringProp name="junitsampler.failure.code">0001</stringProp>
+            <stringProp name="junitsampler.pkg.filter"></stringProp>
+            <stringProp name="junitsampler.exec.setup">false</stringProp>
+            <stringProp name="junitsampler.method">testIDCardXMLSerialization</stringProp>
+            <stringProp name="junitsampler.success">Test successful</stringProp>
+            <stringProp name="junitsampler.constructorstring"></stringProp>
+            <stringProp name="junitSampler.classname">dk.sosi.seal.TestPerformance</stringProp>
+            <stringProp name="junitsampler.append.error">false</stringProp>
+            <stringProp name="junitsampler.append.exception">false</stringProp>
+          </JUnitSampler>
+          <hashTree/>
+          <JUnitSampler guiclass="JUnitTestSamplerGui" testclass="JUnitSampler" testname="testOIOSAMLAssertionToSOSIIDCardRoundTrip" enabled="true">
+            <stringProp name="junitsampler.failure">Test failed</stringProp>
+            <stringProp name="junitsampler.success.code">1000</stringProp>
+            <stringProp name="junitsampler.failure.code">0001</stringProp>
+            <stringProp name="junitsampler.pkg.filter"></stringProp>
+            <stringProp name="junitsampler.exec.setup">false</stringProp>
+            <stringProp name="junitsampler.method">testOIOSAMLAssertionToSOSIIDCardRoundTrip</stringProp>
+            <stringProp name="junitsampler.success">Test successful</stringProp>
+            <stringProp name="junitsampler.constructorstring"></stringProp>
+            <stringProp name="junitSampler.classname">dk.sosi.seal.TestPerformance</stringProp>
+            <stringProp name="junitsampler.append.error">false</stringProp>
+            <stringProp name="junitsampler.append.exception">false</stringProp>
+          </JUnitSampler>
+          <hashTree/>
+          <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+            <boolProp name="ResultCollector.error_logging">false</boolProp>
+            <objProp>
+              <name>saveConfig</name>
+              <value class="SampleSaveConfiguration">
+                <time>true</time>
+                <latency>true</latency>
+                <timestamp>true</timestamp>
+                <success>true</success>
+                <label>true</label>
+                <code>true</code>
+                <message>true</message>
+                <threadName>true</threadName>
+                <dataType>true</dataType>
+                <encoding>true</encoding>
+                <assertions>true</assertions>
+                <subresults>true</subresults>
+                <responseData>true</responseData>
+                <samplerData>true</samplerData>
+                <xml>true</xml>
+                <fieldNames>true</fieldNames>
+                <responseHeaders>true</responseHeaders>
+                <requestHeaders>true</requestHeaders>
+                <responseDataOnError>false</responseDataOnError>
+                <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+                <assertionsResultsToSave>0</assertionsResultsToSave>
+              </value>
+            </objProp>
+            <stringProp name="filename">target/jmeter-endurance-test.jtl</stringProp>
+          </ResultCollector>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>

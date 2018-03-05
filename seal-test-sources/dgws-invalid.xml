@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ The MIT License
+  ~
+  ~ Original work sponsored and donated by National Board of e-Health (NSI), Denmark (http://www.nsi.dk)
+  ~
+  ~ Copyright (C) 2011 National Board of e-Health (NSI), Denmark (http://www.nsi.dk)
+  ~
+  ~ Permission is hereby granted, free of charge, to any person obtaining a copy of
+  ~ this software and associated documentation files (the "Software"), to deal in
+  ~ the Software without restriction, including without limitation the rights to
+  ~ use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+  ~ of the Software, and to permit persons to whom the Software is furnished to do
+  ~ so, subject to the following conditions:
+  ~
+  ~ The above copyright notice and this permission notice shall be included in all
+  ~ copies or substantial portions of the Software.
+  ~
+  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ SOFTWARE.
+  ~
+  ~ $HeadURL$
+  ~ $Id$
+  -->
+
+<Envelope
+   xmlns="http://schemas.xmlsoap.org/soap/envelope/"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:medcom="http://www.medcom.dk/dgws/2006/04/dgws-1.0.xsd"
+   xsi:schemaLocation="http://schemas.xmlsoap.org/soap/envelope/ file:/Users/kaarek/Documents/customers/KA/SOSI/xml/DGWS-1.0/soap.xsd"
+   xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+   wsse:id="Envelope">
+   <Header>
+      <Security xmlns="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+         <Timestamp xmlns="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <Created>2006-12-01T23:59:01</Created>
+         </Timestamp>
+         <Assertion
+            xmlns="urn:oasis:names:tc:SAML:2.0:assertion"
+            IssueInstant="2006-12-01T23:59:01"
+            Version="2.0"
+            id="IDCard">
+            <Issuer>dk.sosi.idp</Issuer>
+            <Subject>
+               <NameID Format="medcom:cprnumber">12345</NameID>
+               <SubjectConfirmation>
+                  <ConfirmationMethod>urn:oasis:names:tc:SAML:2.0:cm:holder-of-key</ConfirmationMethod>
+                  <SubjectConfirmationData>
+                     <KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
+                        <KeyName>Test</KeyName>
+                     </KeyInfo>
+                  </SubjectConfirmationData>
+               </SubjectConfirmation>
+            </Subject>
+            <Conditions
+               NotBefore="2006-12-01T23:59:01"
+               NotOnOrAfter="2006-12-02T23:59:01" />
+            <AttributeStatement id="IDCardData">
+               <Attribute Name="sosi:IDCardID">
+                  <AttributeValue></AttributeValue>
+               </Attribute>
+               <Attribute Name="sosi:IDCardType">
+                  <AttributeValue></AttributeValue>
+               </Attribute>
+            </AttributeStatement>
+         </Assertion>
+         <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+            <SignedInfo>
+               <CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+               <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+               <Reference URI="#Envelope">
+                  <DigestMethod Algorithm="BUMMER" />
+                  <DigestValue></DigestValue>
+               </Reference>
+            </SignedInfo>
+            <SignatureValue></SignatureValue>
+            <KeyInfo>
+               <X509Data>
+                  <X509Certificate></X509Certificate>
+               </X509Data>
+            </KeyInfo>
+         </Signature>
+      </Security>
+      <medcom:Header
+         <medcom:Linking>
+            <medcom:FlowID></medcom:FlowID>
+            <medcom:MessageID></medcom:MessageID>
+</medcom:Linking>
+         <medcom:FlowStatus>flow_runnig</medcom:FlowStatus>
+         <medcom:Header
+   </Header>
+   <Body>
+      <mytag></mytag>
+   </Body>
+</Envelope>
